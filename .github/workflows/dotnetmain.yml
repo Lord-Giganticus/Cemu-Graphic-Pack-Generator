@@ -1,0 +1,37 @@
+name: .NET (No PR)
+
+on:
+  push:
+    branches: [ master ]
+
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: Build.cmd
+      shell: cmd
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: Build
+        path: Build.zip
+    - name : Make a Release
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: auto
+        prerelease: false
+        title: Auto Build via Github Actions
+        files: |
+          Build.zip
