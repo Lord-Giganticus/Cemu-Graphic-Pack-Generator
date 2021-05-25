@@ -5,4 +5,5 @@ Made in C# on DOTNET 5.0
 
 Requires 7zip's cli program to be added to PATH.
 
-ONLY FOR WINDOWS ATM
+This is windows only atm.
+(you need windows or wine for cemu anyway)
